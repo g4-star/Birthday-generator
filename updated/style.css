@@ -1,0 +1,224 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
+}
+
+body {
+  background: #0f0f1a;
+  color: white;
+}
+
+/* APP LAYOUT */
+.app {
+  padding: 20px;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.app-header h1 {
+  font-size: 28px;
+}
+
+.app-header p {
+  opacity: 0.7;
+  margin-top: 5px;
+}
+
+#status {
+  margin-top: 10px;
+  font-size: 14px;
+  padding: 5px 10px;
+  display: inline-block;
+  border-radius: 20px;
+  background: #1f1f2e;
+}
+
+/* MAIN LAYOUT */
+.main-layout {
+  display: flex;
+  gap: 20px;
+}
+
+/* LEFT PANEL */
+.builder-panel {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* RIGHT PREVIEW */
+.preview-panel {
+  width: 60%;
+  background: #111;
+  border-radius: 15px;
+  overflow: hidden;
+  min-height: 600px;
+}
+
+/* IFRAME */
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  min-height: 600px;
+}
+
+/* INPUTS */
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #1b1b2b;
+  color: white;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+/* BUTTONS */
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* GENERATE */
+#generate {
+  background: linear-gradient(45deg, #ff4d6d, #ffcc00);
+  color: black;
+}
+
+/* SHARE */
+#share {
+  background: linear-gradient(45deg, #00c6ff, #0072ff);
+  color: white;
+}
+
+/* SHARE BOX */
+#shareBox {
+  background: #1a1a2a;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  word-break: break-all;
+}
+
+/* CARD STYLE (if extended later) */
+.card {
+  background: #1a1a2a;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+/* STATUS BADGE */
+.status-badge {
+  background: #1f1f2e;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* IMAGE PREVIEW */
+img {
+  margin-top: 10px;
+  max-width: 100%;
+  border-radius: 12px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .main-layout {
+    flex-direction: column;
+  }
+
+  .builder-panel,
+  .preview-panel {
+    width: 100%;
+  }
+}
+
+/* ========================= */
+/* 🌈 THEME SYSTEM (20+) */
+/* ========================= */
+
+/* Party */
+.theme-party { background: linear-gradient(45deg, #ff4d6d, #ffcc00); }
+
+/* Elegant */
+.theme-elegant { background: #2c2c2c; }
+
+/* Hacker */
+.theme-hacker { background: #000; color: #00ff00; }
+
+/* Galaxy */
+.theme-galaxy { background: radial-gradient(circle, #1a1a40, #000); }
+
+/* Neon */
+.theme-neon { background: #00ffcc; }
+
+/* Retro */
+.theme-retro { background: #ffcc00; }
+
+/* Ocean */
+.theme-ocean { background: linear-gradient(#0066cc, #003366); }
+
+/* Sunset */
+.theme-sunset { background: linear-gradient(#ff6600, #ff0033); }
+
+/* Midnight */
+.theme-midnight { background: #0d0d0d; }
+
+/* Cyberpunk */
+.theme-cyberpunk { background: #ff00ff; }
+
+/* Nature */
+.theme-nature { background: #228B22; }
+
+/* Royal */
+.theme-royal { background: #4b0082; }
+
+/* Minimal */
+.theme-minimal { background: #f5f5f5; color: black; }
+
+/* Rainbow */
+.theme-rainbow {
+  background: linear-gradient(90deg, red, orange, yellow, green, blue);
+}
+
+/* Dark */
+.theme-dark { background: #111; }
+
+/* Love */
+.theme-love { background: #ff4d6d; }
+
+/* Anime */
+.theme-anime { background: #ff99cc; }
+
+/* Vaporwave */
+.theme-vaporwave { background: #ff77ff; }
+
+/* Beach */
+.theme-beach { background: #66ccff; }
+
+/* BONUS FX */
+button:active {
+  transform: scale(0.95);
+}

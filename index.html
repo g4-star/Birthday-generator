@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎂 Birthday Page Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <header class="app-header">
+      <div class="header-icon">🎂</div>
+      <div>
+        <h1 class="app-title">Birthday Page Generator</h1>
+        <p class="app-tagline">Create a stunning surprise page for someone special — in seconds.</p>
+      </div>
+    </header>
+
+    <div class="main-layout">
+
+      <!-- LEFT: Builder Form -->
+      <div class="builder-panel">
+
+        <div class="card">
+          <div class="section-title">👤 About the birthday person</div>
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Their name</label>
+              <input type="text" id="name" placeholder="e.g. Chiri" />
+            </div>
+            <div class="field">
+              <label for="age">Their age <span class="optional">(optional)</span></label>
+              <input type="number" id="age" placeholder="e.g. 22" min="1" max="120" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="message">Your personal message</label>
+            <textarea id="message" placeholder="Write something heartfelt, funny, or both!&#10;&#10;e.g. You've been my ride-or-die for 5 years and I honestly don't know what I'd do without you..."></textarea>
+          </div>
+          <div class="field">
+            <label for="sender">Signed from</label>
+            <input type="text" id="sender" placeholder="e.g. Your bestie, Dickson, Mum..." />
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">🎨 Pick a theme</div>
+          <div class="theme-grid" id="theme-grid">
+            <button class="theme-btn active" data-theme="party">
+              <span class="theme-icon">🎉</span>
+              <span class="theme-name">Party Vibes</span>
+            </button>
+            <button class="theme-btn" data-theme="elegant">
+              <span class="theme-icon">🌹</span>
+              <span class="theme-name">Elegant</span>
+            </button>
+            <button class="theme-btn" data-theme="hacker">
+              <span class="theme-icon">💻</span>
+              <span class="theme-name">Hacker</span>
+            </button>
+            <button class="theme-btn" data-theme="pastel">
+              <span class="theme-icon">🌸</span>
+              <span class="theme-name">Pastel Dream</span>
+            </button>
+            <button class="theme-btn" data-theme="galaxy">
+              <span class="theme-icon">🌌</span>
+              <span class="theme-name">Galaxy</span>
+            </button>
+          </div>
+        </div>
+
+        <button class="generate-btn" id="gen-btn">
+          <span class="btn-icon">🎂</span> Generate Birthday Page!
+        </button>
+
+        <div class="action-row" id="actions">
+          <button class="action-btn" id="copy-btn">📋 Copy HTML</button>
+          <button class="action-btn primary" id="dl-btn">⬇️ Download index.html</button>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Live Preview -->
+      <div class="preview-panel">
+        <div class="preview-wrap">
+          <div class="preview-bar">
+            <span class="dot dot-r"></span>
+            <span class="dot dot-y"></span>
+            <span class="dot dot-g"></span>
+            <span class="bar-label">Live Preview</span>
+          </div>
+          <iframe id="preview-frame" title="Birthday page preview"></iframe>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

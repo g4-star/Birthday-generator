@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎂 Birthday SaaS Generator</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+
+<div class="app">
+
+  <header class="app-header">
+    <h1>🎂 Birthday SaaS Generator</h1>
+    <p>Create + Share birthday pages instantly</p>
+
+    <div id="status">🟢 Ready</div>
+  </header>
+
+  <div class="main-layout">
+
+    <!-- LEFT -->
+    <div class="builder-panel">
+
+      <input id="name" placeholder="Name"/>
+      <input id="age" placeholder="Age"/>
+
+      <textarea id="message" placeholder="Message"></textarea>
+      <input id="sender" placeholder="From"/>
+
+      <input type="file" id="image"/>
+
+      <select id="theme">
+        <option value="party">Party 🎉</option>
+        <option value="elegant">Elegant 🌹</option>
+        <option value="hacker">Hacker 💻</option>
+        <option value="galaxy">Galaxy 🌌</option>
+        <option value="neon">Neon ⚡</option>
+        <option value="retro">Retro 📼</option>
+        <option value="ocean">Ocean 🌊</option>
+        <option value="sunset">Sunset 🌅</option>
+        <option value="midnight">Midnight 🌙</option>
+        <option value="cyberpunk">Cyberpunk 🤖</option>
+        <option value="nature">Nature 🌿</option>
+        <option value="royal">Royal 👑</option>
+        <option value="minimal">Minimal ⚪</option>
+        <option value="rainbow">Rainbow 🌈</option>
+        <option value="dark">Dark 🖤</option>
+        <option value="love">Love 💖</option>
+        <option value="anime">Anime 🍥</option>
+        <option value="vaporwave">Vaporwave 🌴</option>
+        <option value="beach">Beach 🏖️</option>
+      </select>
+
+      <button id="generate">🎂 Generate</button>
+      <button id="share">🔗 Get Shareable Link</button>
+
+      <div id="shareBox"></div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="preview-panel">
+      <iframe id="preview"></iframe>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
