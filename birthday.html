@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#15102c">
+  <meta name="description" content="A special birthday surprise made just for you.">
+  <title>A Birthday Surprise 🎂</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; padding: 24px;
+      display: grid; place-items: center;
+      font-family: system-ui, sans-serif; color: #fff;
+      background: radial-gradient(ellipse at top, #53318b, #15102c 70%);
+    }
+    .card {
+      width: min(100%, 680px); padding: clamp(24px, 6vw, 52px);
+      text-align: center; border-radius: 28px;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.2);
+      box-shadow: 0 24px 80px #0005;
+      backdrop-filter: blur(14px);
+    }
+    .emoji { font-size: 48px; }
+    h1 { font-size: clamp(32px, 7vw, 54px); margin: 12px 0; overflow-wrap: anywhere; }
+    .subtitle { color: #e6d8ff; font-size: 18px; }
+    #photo {
+      display: none; width: min(100%, 300px); max-height: 340px;
+      object-fit: cover; margin: 24px auto; border-radius: 20px;
+      border: 3px solid #ffffff80;
+    }
+    #message {
+      white-space: pre-wrap; overflow-wrap: anywhere;
+      line-height: 1.8; font-size: 17px; margin: 28px 0;
+    }
+    .from { color: #eadfff; margin-top: 22px; }
+    .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    button, .share {
+      border: 0; border-radius: 999px; padding: 13px 20px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      color: #24143e; background: #fff; text-decoration: none;
+    }
+    button:hover, .share:hover { transform: translateY(-1px); }
+    #music { display: none; width: 100%; margin: 20px 0; }
+    #status { color: #eadfff; line-height: 1.6; }
+    .footer { margin-top: 30px; font-size: 13px; color: #d5c8eb; }
+    body.elegant { background: linear-gradient(135deg,#201b18,#756044); }
+    body.hacker { background: radial-gradient(ellipse at top,#064e3b,#020b09 75%); }
+    body.pastel { background: linear-gradient(135deg,#fbcfe8,#c4b5fd); color:#3e2450; }
+    body.pastel .subtitle, body.pastel .from, body.pastel #status { color:#553c67; }
+    body.galaxy, body.cosmic { background: radial-gradient(ellipse at top,#312e81,#08071c 75%); }
+    body.royal, body.luxury, body.gold { background: linear-gradient(135deg,#33210a,#b88635,#241509); }
+    body.neon, body.cyberpunk { background: linear-gradient(135deg,#240046,#10002b,#3c096c); }
+    body.floral, body.romantic, body.lavender { background: linear-gradient(135deg,#831843,#4c1d95); }
+    body.ocean { background: linear-gradient(135deg,#075985,#082f49); }
+    body.sunset { background: linear-gradient(135deg,#9a3412,#701a75); }
+    body.midnight { background: linear-gradient(135deg,#111827,#020617); }
+    body.candy, body.dreamy { background: linear-gradient(135deg,#db2777,#7c3aed); }
+    body.minimal { background: #f5f5f4; color: #292524; }
+    body.minimal .subtitle, body.minimal .from, body.minimal #status { color:#57534e; }
+    body.retro { background: linear-gradient(135deg,#78350f,#b45309); }
+    body.tropical, body.emerald { background: linear-gradient(135deg,#065f46,#064e3b); }
+    body.confetti { background: linear-gradient(135deg,#be185d,#4338ca,#047857); }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="emoji" aria-hidden="true">🎂 🎉 🎁</div>
+    <p class="subtitle">A little surprise made just for you</p>
+    <h1 id="name">Loading your surprise…</h1>
+    <p id="age"></p>
+    <img id="photo" alt="A special birthday memory">
+    <p id="message"></p>
+    <p id="from" class="from"></p>
+    <audio id="music" controls loop></audio>
+    <p id="status" role="status">Opening your birthday surprise…</p>
+    <div class="actions">
+      <button id="copy" type="button">🔗 Copy link</button>
+      <a id="whatsapp" class="share" target="_blank" rel="noopener noreferrer">💚 Share on WhatsApp</a>
+      <button id="play" type="button" class="hidden">🎵 Play music</button>
+    </div>
+    <p class="footer">Made with ❤️ for someone special</p>
+  </main>
+  <script>
+    const $ = id => document.getElementById(id);
+    const params = new URLSearchParams(location.search);
+    const pathMatch = location.pathname.match(/^\/b\/([A-Za-z0-9_-]{12})\/?$/);
+    const id = params.get("id") || (pathMatch ? pathMatch[1] : null);
+    const safeUrl = value => {
+      try {
+        const u = new URL(value);
+        return u.protocol === "https:" ? u.href : "";
+      } catch { return ""; }
+    };
+
+    async function loadBirthday() {
+      if (!id || !/^[A-Za-z0-9_-]{12}$/.test(id)) {
+        $("name").textContent = "Birthday page not found";
+        $("message").textContent = "Check that your link is correct.";
+        $("status").textContent = "";
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/birthday?id=" + encodeURIComponent(id));
+        const data = await response.json();
+        if (!response.ok || !data.birthday) throw new Error(data.error || "Page not found");
+
+        const b = data.birthday;
+        $("name").textContent = "Happy Birthday, " + b.recipient_name + "! 🎉";
+        $("age").textContent = b.age == null ? "" : "Celebrating " + b.age + " amazing years ✨";
+        $("message").textContent = b.message;
+        $("from").textContent = b.sender_name ? "With love, " + b.sender_name + " ❤️" : "Made with love ❤️";
+        document.title = "Happy Birthday, " + b.recipient_name + "!";
+
+        const theme = String(b.theme || "party").toLowerCase();
+        const validThemes = [
+          "party","elegant","hacker","pastel","galaxy","royal","neon",
+          "floral","ocean","sunset","midnight","candy","minimal","retro",
+          "luxury","tropical","dreamy","gold","anime","romantic","cyberpunk",
+          "confetti","lavender","emerald","cosmic"
+        ];
+        document.body.classList.add(validThemes.includes(theme) ? theme : "party");
+
+        const photoUrl = safeUrl(b.photo_url);
+        if (photoUrl) {
+          $("photo").src = photoUrl;
+          $("photo").style.display = "block";
+          $("photo").onerror = () => { $("photo").style.display = "none"; };
+        }
+
+        const musicUrl = safeUrl(b.music_url);
+        if (musicUrl) {
+          $("music").src = musicUrl;
+          $("music").style.display = "block";
+          $("play").classList.remove("hidden");
+          $("play").addEventListener("click", async () => {
+            try { await $("music").play(); } catch {
+              $("status").textContent = "Use the audio controls to play the music.";
+            }
+          });
+        }
+
+        $("whatsapp").href = "https://wa.me/?text=" +
+          encodeURIComponent("A birthday surprise for you 🎂 " + location.href);
+        $("status").textContent = "Your birthday surprise is ready 💖";
+      } catch (error) {
+        $("name").textContent = "We couldn't load this surprise";
+        $("message").textContent = error.message || "Please try again later.";
+        $("status").textContent = "Check your connection and try refreshing.";
+      }
+    }
+
+    $("copy").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(location.href);
+        $("status").textContent = "Link copied! Share the surprise 🎉";
+      } catch {
+        $("status").textContent = "Copy this page's address from your browser.";
+      }
+    });
+
+    loadBirthday();
+  </script>
+</body>
+</html>
