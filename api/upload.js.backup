@@ -1,0 +1,95 @@
+const { put } = require("@vercel/blob");
+const { randomUUID } = require("node:crypto");
+
+const MAX_BYTES = 3 * 1024 * 1024;
+
+const ALLOWED_TYPES = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "audio/mpeg",
+  "audio/mp4",
+  "audio/ogg",
+  "audio/wav",
+  "audio/webm"
+]);
+
+function send(res, status, data) {
+  res.statusCode = status;
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.setHeader("Cache-Control", "no-store");
+  res.end(JSON.stringify(data));
+}
+
+module.exports = async function handler(req, res) {
+  if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
+    return send(res, 405, { error: "Use POST to upload a file." });
+  }
+
+  try {
+    const { data, contentType, kind } = req.body || {};
+
+    if (!["photo", "music"].includes(kind)) {
+      return send(res, 400, { error: "Invalid upload type." });
+    }
+
+    if (!ALLOWED_TYPES.has(contentType)) {
+      return send(res, 400, { error: "This file type is not supported." });
+    }
+
+    if (kind === "photo" && !contentType.startsWith("image/")) {
+      return send(res, 400, { error: "Please upload an image." });
+    }
+
+    if (kind === "music" && !contentType.startsWith("audio/")) {
+      return send(res, 400, { error: "Please upload an audio file." });
+    }
+
+    if (typeof data !== "string" || !data || data.length > 4_200_000) {
+      return send(res, 413, { error: "File is too large. Maximum size is 3 MB." });
+    }
+
+    const buffer = Buffer.from(data, "base64");
+
+    if (!buffer.length || buffer.length > MAX_BYTES) {
+      return send(res, 413, { error: "File is too large. Maximum size is 3 MB." });
+    }
+
+    const extension = {
+      "image/jpeg": "jpg",
+      "image/png": "png",
+      "image/webp": "webp",
+      "audio/mpeg": "mp3",
+      "audio/mp4": "m4a",
+      "audio/ogg": "ogg",
+      "audio/wav": "wav",
+      "audio/webm": "webm"
+    }[contentType];
+
+    const blob = await put(
+      `birthday-${kind}/${randomUUID()}.${extension}`,
+      buffer,
+      {
+        access: "public",
+        contentType,
+        addRandomSuffix: true
+      }
+    );
+
+    return send(res, 200, { url: blob.url });
+  } catch (error) {
+    console.error("Birthday media upload failed:", error.message);
+    return send(res, 500, {
+      error: "Upload failed. Please try again."
+    });
+  }
+};
+
+module.exports.config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "4.2mb"
+    }
+  }
+};

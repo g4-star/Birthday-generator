@@ -347,3 +347,108 @@ body {
   display: block;
   background: white;
 }
+
+/* Shareable birthday pages upgrade */
+.theme-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-height: 390px;
+  overflow-y: auto;
+  padding: 3px;
+}
+
+.theme-btn {
+  min-width: 0;
+}
+
+.theme-name {
+  overflow-wrap: anywhere;
+}
+
+.help-text {
+  display: block;
+  margin-top: 6px;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+#photo-preview {
+  display: none;
+  max-width: 100%;
+  max-height: 220px;
+  margin-top: 12px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.upload-settings {
+  padding: 12px;
+  margin: 12px 0;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+}
+
+.upload-settings summary {
+  cursor: pointer;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.creation-status {
+  margin: 12px 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(120, 120, 140, 0.08);
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+
+.creation-status.success {
+  color: #137447;
+  background: #e8fff2;
+}
+
+.creation-status.error {
+  color: #a32929;
+  background: #fff0f0;
+}
+
+#actions {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+#actions.visible {
+  display: flex;
+}
+
+#actions label {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#share-link {
+  width: 100%;
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid var(--border-hover);
+  border-radius: 9px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+#gen-btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+@media (max-width: 480px) {
+  .theme-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
