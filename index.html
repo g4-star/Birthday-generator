@@ -46,6 +46,7 @@
           </div>
         </div>
 
+        <div class="card"><div class="section-title">🖼️ Photo and music</div><div class="field"><label for="photo-file">Upload photo (JPG, PNG, WebP)</label><input type="file" id="photo-file" accept="image/jpeg,image/png,image/webp"><img id="photo-preview" alt="Photo preview" style="display:none;max-width:100%;max-height:220px;object-fit:contain"></div><div class="field"><label for="photo-url">Or public photo URL</label><input type="url" id="photo-url" placeholder="https://example.com/photo.jpg"></div><div class="field"><label for="music-file">Choose a birthday song (optional, MP3/M4A/OGG/WAV/WebM, max 3 MB)</label><input type="file" id="music-file" accept="audio/mpeg,audio/mp4,audio/ogg,audio/wav,audio/webm"></div><div class="field"><label for="music-url">Or public music URL (optional)</label><input type="url" id="music-url" placeholder="https://example.com/song.mp3"></div></div>
         <div class="card">
           <div class="section-title">🎨 Pick a theme</div>
           <div class="theme-grid" id="theme-grid">
@@ -76,10 +77,8 @@
           <span class="btn-icon">🎂</span> Generate Birthday Page!
         </button>
 
-        <div class="action-row" id="actions">
-          <button class="action-btn" id="copy-btn">📋 Copy HTML</button>
-          <button class="action-btn primary" id="dl-btn">⬇️ Download index.html</button>
-        </div>
+        <div id="creation-status" class="creation-status" role="status" aria-live="polite"></div>
+        <div class="action-row" id="actions"><label for="share-link">Your shareable birthday link</label><input type="url" id="share-link" readonly placeholder="Generate a page to get your link"><button class="action-btn" id="copy-link-btn" type="button">📋 Copy link</button><button class="action-btn primary" id="whatsapp-btn" type="button">💚 Share on WhatsApp</button></div>
 
       </div>
 
@@ -98,6 +97,10 @@
 
     </div>
   </div>
+  <audio controls autoplay loop>
+    <source src="music/happy-birthday.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
 
   <script src="script.js"></script>
 </body>
